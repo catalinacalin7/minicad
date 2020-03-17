@@ -1,0 +1,72 @@
+Tema 2 - MiniCAD
+Nume, prenume : Calin Catalina
+Grupa, seria : 324CA
+
+Data inceperii temei: 20-11-2017
+Data finalizarii temei: 26-11-2017
+
+
+Mod de lucru:
+
+	Pentru aceasta tema a trebuit sa implementez MiniCad folosind 
+Visitor Pattern, Factory Pattern si Singleton Pattern.
+	Pentru inceput, am creat clasele corespunzatoare fiecarei figuri:
+Circle, Triangle, Canvas, Diamond etc. Fiecare clasa are campurile necesare
+pentru desenarea acestora (care vor fi initializate la citire). 
+
+
+	Visitor Pattern:
+
+	Toate clasele figurilor enumerate implementeaza interfata Visitable, 
+necesara pentru Visitor Pattern, unde Visitable - interfata pentru obiecte 
+pe care poate fi aplicata operatia draw. Aici avem metoda accept, care
+primeste ca parametru un visitor, astfel permite acceptarea operatie de 
+desenare pentru fiecare figura. La fel, in Visitable am creat o 
+metoda "citire" care citeste si instantiaza toate campurile corespunzatoare 
+figurilor care o suprascriu. 
+	La fel, am creat interfata Visitor, unde Visitor - interfata pentru 
+operatia aplicata "draw" pentru fiecare obiect care implementeaza interfata 
+Visitable. 
+	Pentru operatia de desenare ce trebuie aplicata, se implementeaza 
+clasa de tip Visitor. In DrawVisitor de tip Visitor am implementat
+metode care aplica operatia pentru fiecare tip de element vizitabil
+(care implementeaza interfata Visitable). Folosind algoritmii implementati
+intr-o clasa aparte numita "Algoritmi" (Bresenham pentru linii, pentru 
+cercuri, floodFill), am creat metoda draw, ce deseneaza figura primita ca
+paramentru in bufferimage primit ca parametru(care ulterior va fi canvasul).
+Patratul si dreptunghiul i-am colorat iteriorul fara floodFill, iar restul
+figurilor, folosind acest algoritm.
+	In clasa abstracta Main am instantiat DrawVisitor si am folosit
+metodele accept a figurilor pentru desenarea acestora pe canvas. Cu ajutorul
+Visitor Pattern a fost foarte usor de implementat in Main citirea si desenarea
+figurilor pe canvas.
+
+
+	Factory Pattern:
+	
+	Dupa cum am scris si mai sus, toate figurile apartineau unei ierarhii,
+si anume toate implementau interfata Visitable. Astfel a fost posibila 
+folosirea Factory Pattern pentru returnarea unei figuri in functie de denumirea
+acestora. ShapeFactory are metoda getShape ce returneaza o figura noua, tipul 
+careia este in dependenta cu stringul primit ca paramentru(citit din fis. de 
+intrare) si returneaza un obiect de tip Visitable.
+	In clasa Main am instantia Factory Pattern si pentru fiecare figura
+citeam din fisierul de intrare denumirea acesteia, parsam denumirea instantei
+ShapeFactory si getShape() imi returna obiectul, cu care ulterior lucram(il
+desenam pe canvas).
+
+	Singleton Pattern:
+
+	In implementarea temei am folosit Singleton Pattern in cadrul a 2 clase:
+Canvas si ShapeFactory, in Canvas pentru avem mereu nevoie de doar un Canvas
+la fiecare rularea programului si ShapeFactory, la fel, pentru ca folosim 
+doar o instanta a lui pe parcursul intregului program. Astfel in fiecare clasa
+din cele 2 am facut constructor private, si o instanta statica private, care are un
+getter, pe care l-am apelat in main la crearea Canvasului si a ShapeFactory.
+
+	Folosind aceste 3 pattern-uri, mi-a fost foarte usor sa fac citirea si
+scrierea in Main, folosind doar cateva linii de cod.
+
+
+
+
